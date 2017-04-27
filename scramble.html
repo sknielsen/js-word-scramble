@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Scramble</title>
+</head>
+<body>
+    <h1>A Javascript Word Scramble Game</h1>
+
+    <script>
+        var WORDS     = ["booger", "apple", "hackbright", "mango", "telephone",
+                         "racecar", "elephant", "javascript", "engagement"];
+        // var SCRAMBLED = ["oogreb", "papel", "backrhight", "goman"];
+
+        var playing = true;
+
+        while (playing) {
+
+            // Grab a random word from the WORDS array.
+
+            var wordIndex = Math.floor(Math.random() * WORDS.length);
+            var word = WORDS[wordIndex];
+
+            // Grab the corresponding scrambled word from the SCRAMBLED array.
+
+            // var scramWord = SCRAMBLED[wordIndex];
+            function shuffle(string) {
+                var parts = string.split('');
+                for (var i = parts.length; i > 0;) {
+                    var random = parseInt(Math.random() * i);
+                    var temp = parts[--i];
+                    parts[i] = parts[random];
+                    parts[random] = temp;
+                }
+                return parts.join('');
+            }
+            // Prompt the user to guess the original word when given the scrambled word.
+            var scramWord = shuffle(word);
+            var guess = prompt("Scrambled Word: " + scramWord + "\n\nCan you guess the original word?!");
+            if (guess == null) {
+                playing = false;
+                break;
+            }
+            guess = guess.toLowerCase();
+            guess = guess.trim();
+
+            // If the user guesses wrong, tell them they were wrong and show the right word.
+            while (guess != word) {
+                guess = prompt("WRONG. Try again. \n\nScrambled Word: " + scramWord);
+                if (guess == null) {
+                    playing = false;
+                    break;
+                }
+                guess = guess.toLowerCase();
+                guess = guess.trim();
+            }
+            if (guess == word) {
+                alert("Congratulations!");
+            } else {
+                break;
+            }
+            
+            // If the user guesses the correct word, congratulate them.
+
+            playing = confirm("Press OK To keep playing or Cancel to quit");
+
+            // What does confirm() return?
+            // What does setting the playing variable do?
+        }
+
+        alert("goodbye!");
+    </script>
+    
+</body>
+</html>
